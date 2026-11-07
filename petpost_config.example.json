@@ -1,0 +1,14 @@
+{
+    "discord": {
+        "enabled": true,
+        "botToken": "ここにBotトークン（絶対に公開しない）",
+        "myUserId": "あなたのDiscordユーザーID（数字）",
+        "guildIds": []
+    },
+    "bluesky": {
+        "enabled": true,
+        "identifier": "yourname.bsky.social",
+        "appPassword": "xxxx-xxxx-xxxx-xxxx",
+        "service": "https://bsky.social"
+    }
+}
