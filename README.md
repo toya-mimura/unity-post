@@ -29,12 +29,12 @@
 - 想定環境：Unity 2022.3 / Unity 6、Windows スタンドアロン
 
 1. `Unity-post` フォルダごと `Assets/` に入れる。
-2. **Newtonsoft JSON を入れる**：Window → Package Manager → 左上の「＋」→ *Install package by name…* → `com.unity.nuget.newtonsoft-json` を**一字一句そのまま**入力
-   -注意：`newtonsoft` だけだと見つかりません。
+2. **Newtonsoft JSON を入れる**：Window → Package Manager → 左上の「＋」→ *Install package by name…* → `com.unity.nuget.newtonsoft-json` を検索
+   - **一字一句そのまま**入力。`newtonsoft` だけだと見つかりません。
    - Version は空欄でOK
    - すでに入っているプロジェクトも多いです。Consoleに `Newtonsoft` のエラーが出なければOK。
 
-## 2. Discord Bot を用意する
+## 2. 【任意】Discord Bot を用意する
 
 [Discord Developer Portal](https://discord.com/developers/applications) で：
 
@@ -58,11 +58,12 @@
 6. **自分のユーザーID**：Discordの ユーザー設定 → 詳細設定 → **開発者モード ON** → 自分のアイコンを右クリック → **ユーザーIDをコピー**。
    （サーバーを限定したいときは、サーバーアイコンを右クリック → サーバーIDをコピー → `guildIds` に入れる）
 
-## 3. Bluesky のアプリパスワードを作る
+## 3. 【任意】Bluesky のアプリパスワードを作る
 
-Bluesky の 設定 → プライバシーとセキュリティ → **アプリパスワード** → 追加。
-名前は「PetPost」など。「DMへのアクセスを許可」は **OFF のまま** でOK。
-普段のパスワードは使わないでください（漏れても、アプリパスワードだけ削除すれば無効化できます）。
+- Bluesky の 設定 → プライバシーとセキュリティ → **アプリパスワード** → 追加。
+ - 名前は「Unity-post」など。
+ - 「DMへのアクセスを許可」は **OFF のまま** でOK。
+ - 普段のパスワードは使わないでください（漏れても、アプリパスワードだけ削除すれば無効化できます）。
 
 ## 4. シーンを組む
 
