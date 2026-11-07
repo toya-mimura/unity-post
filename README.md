@@ -1,6 +1,8 @@
-# PetPost — Discord / Bluesky の通知でペットが反応する Unity スクリプト
+# Unity Post — Discord / Bluesky の通知をUnityで構築したシーンに連携させる Unity スクリプト
 
-アプリ起動中だけ通知を受け取り、「リンゴが落ちる」「手紙が届く」「キラキラが出る」などの演出に振り分けます。サーバーもCloudflareも不要で、Unity単体で動きます。
+- アプリ起動中だけ通知を受け取ります。
+- 「リンゴが落ちる」「手紙が届く」「キラキラが出る」などの演出に振り分けます。
+- サーバー不要で、Unity単体で動きます。
 
 ```
  Discord Gateway ──(WebSocket)──▶ DiscordGatewaySource ─┐
