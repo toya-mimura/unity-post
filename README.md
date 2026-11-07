@@ -26,30 +26,36 @@
 ---
 
 ## 1. Unity に入れる
+- 想定環境：Unity 2022.3 / Unity 6、Windows スタンドアロン
 
 1. `Unity-post` フォルダごと `Assets/` に入れる。
-2. **Newtonsoft JSON を入れる**：Window → Package Manager → 左上の「＋」→ *Install package by name…* → `com.unity.nuget.newtonsoft-json` を**一字一句そのまま**入力（`newtonsoft` だけだと見つかりません）。Version は空欄でOK
-   （すでに入っているプロジェクトも多いです。Consoleに `Newtonsoft` のエラーが出なければOK）
-3. 想定環境：Unity 2022.3 / Unity 6、Windows スタンドアロン。WebGL では動きません（ブラウザから Gateway に直接つなげないため）。
+2. **Newtonsoft JSON を入れる**：Window → Package Manager → 左上の「＋」→ *Install package by name…* → `com.unity.nuget.newtonsoft-json` を**一字一句そのまま**入力
+   -注意：`newtonsoft` だけだと見つかりません。
+   - Version は空欄でOK
+   - すでに入っているプロジェクトも多いです。Consoleに `Newtonsoft` のエラーが出なければOK。
 
 ## 2. Discord Bot を用意する
 
 [Discord Developer Portal](https://discord.com/developers/applications) で：
 
-1. **New Application** → 名前を付ける（例：PetPost）。
+1. **New Application** → 名前を付ける（例：Unity-post）。
 2. 左メニュー **Bot**
-   - **Reset Token** → 表示されたトークンをコピー（あとで設定ファイルへ。再表示はできません）。
+   - **Reset Token** → 表示されたトークンをコピー
+    - 注意：あとで設定ファイルへ。再表示はできません。
+   - 左メニュー **Installation** の **Install Link** を **None** にして保存する
+     - これをしないと次で「プライベートアプリにはデフォルトの認証リンクを設定できません」と出て保存できません。
    - **Public Bot を OFF**（自分以外が招待できないようにする）。
-     先に左メニュー **Installation** の **Install Link** を **None** にして保存しておかないと、「プライベートアプリにはデフォルトの認証リンクを設定できません」と出て保存できません。
-   - **Privileged Gateway Intents** の **Server Members Intent を ON**（新メンバー検知に必要）。
-     Message Content Intent は **不要**（本文は読まないため）。
+   - **Privileged Gateway Intents** の **Server Members Intent を ON**
+     - 新メンバー検知に必要です。
+     - Message Content Intent は **不要**（本文は読まないため）。
 3. 左メニュー **General Information** の **Application ID** をコピー。
-4. 次のURLの `<APP_ID>` を置き換えてブラウザで開き、おひとり様サーバーを選んで招待：
+4. 次のURLの `<APP_ID>` を置き換えてブラウザで開き、自分が管理者であるサーバーを選んでbotを招待：
    ```
    https://discord.com/oauth2/authorize?client_id=<APP_ID>&scope=bot&permissions=0
    ```
-   `permissions=0` なので、Botは発言・削除・管理が一切できません。見えるのは `@everyone` が見られるチャンネルだけです（非公開チャンネルも拾いたい場合は、そのチャンネルでBotに「チャンネルを見る」を許可）。
-5. **自分のユーザーID**：Discordの ユーザー設定 → 詳細設定 → **開発者モード ON** → 自分のアイコンを右クリック → **ユーザーIDをコピー**。
+   `permissions=0` なので、Botは発言・削除・管理が一切できません。見えるのは `@everyone` が見られるチャンネルだけです
+   （非公開チャンネルも拾いたい場合は、そのチャンネルでBotに「チャンネルを見る」を許可）。
+6. **自分のユーザーID**：Discordの ユーザー設定 → 詳細設定 → **開発者モード ON** → 自分のアイコンを右クリック → **ユーザーIDをコピー**。
    （サーバーを限定したいときは、サーバーアイコンを右クリック → サーバーIDをコピー → `guildIds` に入れる）
 
 ## 3. Bluesky のアプリパスワードを作る
