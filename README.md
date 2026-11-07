@@ -27,7 +27,7 @@
 
 ## 1. Unity に入れる
 
-1. `PetPost` フォルダごと `Assets/` に入れる。
+1. `Unity-post` フォルダごと `Assets/` に入れる。
 2. **Newtonsoft JSON を入れる**：Window → Package Manager → 左上の「＋」→ *Install package by name…* → `com.unity.nuget.newtonsoft-json` を**一字一句そのまま**入力（`newtonsoft` だけだと見つかりません）。Version は空欄でOK
    （すでに入っているプロジェクトも多いです。Consoleに `Newtonsoft` のエラーが出なければOK）
 3. 想定環境：Unity 2022.3 / Unity 6、Windows スタンドアロン。WebGL では動きません（ブラウザから Gateway に直接つなげないため）。
