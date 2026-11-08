@@ -22,6 +22,8 @@
 | Bluesky | `Sources/Bluesky/BlueskyNotificationSource.cs` | いいね・リポスト・フォロー・メンション・リプライ・引用 |
 | 演出サンプル | `Reactions/*.cs` | プレハブ生成、パーティクル、Animator、効果音、差出人名の表示 |
 | 確認用 | `Debug/PetPostDebugPanel.cs` | 接続状態の表示と、偽イベントの発火ボタン |
+| デモ作成 | `Editor/PetPostDemoBuilder.cs` | メニュー「PetPost > デモシーンを作る」 |
+| おまけ素材 | `Samples/` | リンゴのメッシュ、ふわふわ飛ぶ手紙の演出（[説明](Samples/about-sample-objects.md)） |
 
 ---
 
