@@ -78,7 +78,7 @@
 
 ## 4. シーンを組む
 
-### **手早く試したいとき**：  
+### **手早く試したいとき**  
 1. メニューの **【Unity Post】 > 【デモシーンを作る】**
    - 床・仮の樹・Apple プレハブ・生成エリア・ルールのつなぎ込みまで自動で組めます。
 2. 【Window】 > 【Package Management】 > 【Package Manager】:  `com.unity.cloud.gltfast`を導入してください。
@@ -86,7 +86,7 @@
    - 📝Apple(リンゴオブジェクト）のテクスチャが表示されない（青くなってしまう）場合：
    - 「Assets/UnityPostDemo」内の「Apple」のPrefab Assetを開いてオブジェクトをクリックするなどしてみてください。シェーダーの適用が走ります。
 
-### ** 手で組む場合の説明 **
+### **手で組む場合の説明**
 空の GameObject「UnityPost」を作り、次を付けます：
 - `PetEventHub`（1つだけ）
 - `PetReactionRouter`
