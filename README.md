@@ -4,7 +4,8 @@
 - 「リンゴが落ちる」「手紙が届く」「キラキラが出る」などの演出に振り分けます。
 - クラウドなどのサーバー不要で、Unity単体で動きます。
 
-[👉作業手順：](https://github.com/toya-mimura/unity-post/tree/main#1-unity-%E3%81%AB%E5%85%A5%E3%82%8C%E3%82%8B)
+[👉作業手順：「1. Unityに入れる」へジャンプ](https://github.com/toya-mimura/unity-post/tree/main#1-unity-%E3%81%AB%E5%85%A5%E3%82%8C%E3%82%8B)
+- Discord、Blueskyのアカウントが無くても、デバッグパネルで「テスト送信」を行い挙動を確認することが可能です。
 
 ```
  Discord Gateway ──(WebSocket)──▶ DiscordGatewaySource ─┐
