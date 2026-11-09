@@ -80,7 +80,7 @@
 
 ### **手早く試したいとき**：  
 1. メニューの **【Unity Post】 > 【デモシーンを作る】**
- - 床・仮の樹・Apple プレハブ・生成エリア・ルールのつなぎ込みまで自動で組めます（Ctrl+Z で取り消し可）。
+   - 床・仮の樹・Apple プレハブ・生成エリア・ルールのつなぎ込みまで自動で組めます（Ctrl+Z で取り消し可）。
 2. 【Window】 > 【Package Management】 > 【Package Manager】:  `com.unity.cloud.gltfast`を導入してください。
    - ✨新しいシーン（File > New Scene）で実行するのがおすすめです。
    - 📝Apple(リンゴオブジェクト）のテクスチャが表示されない（青くなってしまう）場合：
