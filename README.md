@@ -86,10 +86,8 @@
  - 📝Apple(リンゴオブジェクト）のテクスチャが表示されない（青くなってしまう）場合：
  - 「Assets/UnityPostDemo」内の「Apple」のPrefab Assetを開いてオブジェクトをクリックするなどしてみてください。シェーダーの適用が走ります。
 
-**✨以下は手で組む場合の説明です。**
-
+### ** 手で組む場合の説明 **
 空の GameObject「UnityPost」を作り、次を付けます：
-
 - `PetEventHub`（1つだけ）
 - `PetReactionRouter`
 - `DiscordGatewaySource`
