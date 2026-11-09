@@ -152,7 +152,7 @@ namespace PetPost.Sources
 
         void Fail(string message)
         {
-            Debug.LogError("[PetPost/Bluesky] " + message);
+            Debug.LogError("[UnityPost/Bluesky] " + message);
             SetStatus(SourceStatus.Error, message);
         }
 
@@ -198,7 +198,7 @@ namespace PetPost.Sources
                     }
                 }
             }
-            if (isLogin) Debug.Log($"[PetPost/Bluesky] ログインしました（@{PetJson.Str(o, "handle")}）");
+            if (isLogin) Debug.Log($"[UnityPost/Bluesky] ログインしました（@{PetJson.Str(o, "handle")}）");
         }
 
         static IEnumerator Send(string method, string url, string bearer, string jsonBody, HttpResult r)

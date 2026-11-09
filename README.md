@@ -22,7 +22,7 @@
 | Bluesky | `Sources/Bluesky/BlueskyNotificationSource.cs` | いいね・リポスト・フォロー・メンション・リプライ・引用 |
 | 演出サンプル | `Reactions/*.cs` | プレハブ生成、パーティクル、Animator、効果音、差出人名の表示 |
 | 確認用 | `Debug/PetPostDebugPanel.cs` | 接続状態の表示と、偽イベントの発火ボタン |
-| デモ作成 | `Editor/PetPostDemoBuilder.cs` | メニュー「PetPost > デモシーンを作る」 |
+| デモ作成 | `Editor/PetPostDemoBuilder.cs` | メニュー「Unity Post > デモシーンを作る」 |
 | おまけ素材 | `Samples/` | リンゴのメッシュ、ふわふわ飛ぶ手紙の演出（[説明](Samples/about-sample-objects.md)） |
 
 ---
@@ -75,11 +75,11 @@
 ## 4. シーンを組む
 
 > **手早く試したいとき**：  
-> メニューの **Unity-post > デモシーンを作る** で、床・仮の樹・Apple プレハブ・生成エリア・ルールのつなぎ込みまで自動で組めます（Ctrl+Z で取り消し可）。  
+> メニューの **Unity Post > デモシーンを作る** で、床・仮の樹・Apple プレハブ・生成エリア・ルールのつなぎ込みまで自動で組めます（Ctrl+Z で取り消し可）。  
 > 新しいシーン（File > New Scene）で実行するのがおすすめです。以下は手で組む場合の説明です。
 
 
-空の GameObject「PetPost」を作り、次を付けます：
+空の GameObject「UnityPost」を作り、次を付けます：
 
 - `PetEventHub`（1つだけ）
 - `PetReactionRouter`
@@ -146,7 +146,7 @@
 2. パネルの「テスト送信」ボタンで、本物と同じ形の偽イベントが流れます。ルールと演出をここで調整。
    「同じ人がメンション×5」で、クールダウンにより1回だけ反応することも確認できます。
 3. 本物で試す：
-   - **Discord・Botへのメンション**：自分のサーバーで `@PetPost` とBotをメンション → `botMentions` で反応。
+   - **Discord・Botへのメンション**：自分のサーバーで `@（Botの名前）` とBotをメンション → `botMentions` で反応。
    - **Discord・自分へのメンション**：自分で自分をメンションしても反応しません（仕様）。チャンネルの ウェブフック を作って、PowerShell から送ると試せます：
      ```powershell
      $url = "https://discord.com/api/webhooks/xxxx/yyyy"   # チャンネル設定 → 連携サービス → ウェブフック
@@ -164,10 +164,10 @@
 | 新メンバーに反応しない | Botが参加しているサーバーか、`guildIds` の指定を確認 |
 | メンションに反応しない | `myUserId` が正しいか。Botがそのチャンネルを見られるか |
 | Bluesky が赤●「ログインに失敗」 | identifier（ハンドル）とアプリパスワードを確認。誤ったまま連打しないよう、自動では再試行しません |
-| 再生しても Console に何も出ない | シーンに PetPost のコンポーネントが付いていない（手順4） |
+| 再生しても Console に何も出ない | シーンに Unity Post のコンポーネントが付いていない（手順4） |
 | デバッグパネルが小さすぎる | Game ビューが4Kなど高解像度。Full HD にするか `uiScale` を上げる |
-| ボタンを押してもリンゴが落ちない | ルールの **Enabled** が OFF、または演出の **Weight** が 0。Console の `[PetPost]` の警告に理由が出ます |
-| 何も起きない | シーンに `PetEventHub` があるか。ルールの sources / kinds が Nothing になっていないか。Console の `[PetPost]` ログ |
+| ボタンを押してもリンゴが落ちない | ルールの **Enabled** が OFF、または演出の **Weight** が 0。Console の `[UnityPost]` の警告に理由が出ます |
+| 何も起きない | シーンに `PetEventHub` があるか。ルールの sources / kinds が Nothing になっていないか。Console の `[UnityPost]` ログ |
 | 一斉に来ると演出が詰まる | Hub の `minSecondsBetweenEvents`（間隔）と `maxQueued`（上限）で調整 |
 
 ## 8. 受信元を増やす（Misskey、Gmail など）

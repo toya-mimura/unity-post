@@ -22,12 +22,18 @@ Unity は標準では `.glb` を読み込めません。
 
 ---
 
-## Apple：リンゴを Sphere から差し替える
+## Apple：リンゴの見た目
 
-1. `Apple.glb` をプロジェクトに入れる。
-2. Apple プレハブ（デモシーンなら `Assets/PetPostDemo/Apple.prefab`）をダブルクリックで開く。
-3. 子の `Visual`（Sphere）を削除し、代わりに `Apple.glb` を子として置く。
-4. 当たり判定は親の Sphere Collider のまま使えます。見た目に合わせて Radius を調整してください。
+**デモシーンで使う場合は自動です。** glTFast を入れた状態でメニューの **Unity Post > デモシーンを作る** を実行すると、Apple プレハブの見た目に `Apple.glb` が使われます（当たり判定の大きさに合わせて自動で縮小・中央寄せされます）。glTFast がない場合は赤い Sphere になります。
+
+- すでに Sphere の Apple プレハブがある場合は、glTFast を入れてから `Assets/UnityPostDemo/Apple.prefab` を消し、もう一度デモシーンを作ってください。
+- glTFast で読み込んだモデルには、URP の Lit ではなく glTFast 用のシェーダーが付きます。URP でも正しく表示されますが、色などを Unity のマテリアルとして編集したい場合は、モデルを Unpack してマテリアルを取り出してください。
+
+**手で差し替える場合**
+
+1. 自分の Apple プレハブをダブルクリックで開く。
+2. 子の `Visual` を削除し、代わりに `Apple.glb`（または好きなモデル）を子として置く。
+3. 当たり判定は親の Sphere Collider のまま使えます。見た目に合わせて Radius を調整してください。
 
 ## Letter：手紙がふわふわ届く
 

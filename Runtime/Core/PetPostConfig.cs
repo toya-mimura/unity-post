@@ -61,7 +61,7 @@ namespace PetPost
                 {
                     Directory.CreateDirectory(Path.GetDirectoryName(path));
                     File.WriteAllText(path, JsonUtility.ToJson(new PetPostConfig(), true));
-                    Debug.LogWarning($"[PetPost] 設定ファイルの雛形を作りました。値を入れて再生し直してください:\n{path}");
+                    Debug.LogWarning($"[UnityPost] 設定ファイルの雛形を作りました。値を入れて再生し直してください:\n{path}");
                     return null;
                 }
 
@@ -74,7 +74,7 @@ namespace PetPost
             }
             catch (Exception ex)
             {
-                Debug.LogError($"[PetPost] 設定ファイルを読めませんでした: {path}\n{ex.Message}");
+                Debug.LogError($"[UnityPost] 設定ファイルを読めませんでした: {path}\n{ex.Message}");
                 return null;
             }
         }
