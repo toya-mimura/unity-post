@@ -38,7 +38,7 @@ namespace PetPost.DebugTools
             GUILayout.BeginArea(new Rect(10, 10, 380, h), GUI.skin.box);
             _scroll = GUILayout.BeginScrollView(_scroll, false, false, GUIStyle.none, GUI.skin.verticalScrollbar);
 
-            GUILayout.Label("<b>PetPost</b>", Rich());
+            GUILayout.Label("<b>Unity Post</b>", Rich());
 
             // --- 状態 ---
             if (PetEventSource.Active.Count == 0) GUILayout.Label("受信元がありません");

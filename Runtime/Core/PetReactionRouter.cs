@@ -116,7 +116,7 @@ namespace PetPost
             if (hub == null) hub = PetEventHub.Instance != null ? PetEventHub.Instance : FindHub();
             if (hub == null)
             {
-                Debug.LogWarning("[PetPost] PetEventHub が見つかりません。", this);
+                Debug.LogWarning("[UnityPost] PetEventHub が見つかりません。", this);
                 return;
             }
             hub.Delivered += Route;
@@ -157,7 +157,7 @@ namespace PetPost
             }
 
             if (!matched && logUnmatched)
-                Debug.Log($"[PetPost] {e.source}/{e.kind} に一致するルールがありません。" +
+                Debug.Log($"[UnityPost] {e.source}/{e.kind} に一致するルールがありません。" +
                           "Router の rules で Enabled・Sources・Kinds を確認してください。", this);
         }
 
@@ -166,7 +166,7 @@ namespace PetPost
             var opts = rule.options;
             if (opts == null || opts.Count == 0)
             {
-                Debug.LogWarning($"[PetPost] ルール「{rule.label}」に演出（options）が登録されていません。", this);
+                Debug.LogWarning($"[UnityPost] ルール「{rule.label}」に演出（options）が登録されていません。", this);
                 return;
             }
 
@@ -185,7 +185,7 @@ namespace PetPost
                 default:
                     var picked = PickWeighted(opts);
                     if (picked != null) Invoke(picked, e);
-                    else Debug.LogWarning($"[PetPost] ルール「{rule.label}」の演出の Weight がすべて0です。1以上にしてください。", this);
+                    else Debug.LogWarning($"[UnityPost] ルール「{rule.label}」の演出の Weight がすべて0です。1以上にしてください。", this);
                     break;
             }
         }
@@ -210,7 +210,7 @@ namespace PetPost
         void Invoke(ReactionOption o, PetEvent e)
         {
             if (o.action == null || o.action.GetPersistentEventCount() == 0)
-                Debug.LogWarning($"[PetPost] 演出「{o.name}」の Action に何もつながっていません。", this);
+                Debug.LogWarning($"[UnityPost] 演出「{o.name}」の Action に何もつながっていません。", this);
             try { o.action.Invoke(e); }
             catch (Exception ex) { Debug.LogException(ex, this); }
         }

@@ -44,7 +44,7 @@ namespace PetPost.Reactions
         {
             if (letterPrefab == null || pointA == null || pointB == null)
             {
-                Debug.LogWarning("[PetPost] LetterDeliveryReaction の Letter Prefab / Point A / Point B を設定してください。", this);
+                Debug.LogWarning("[UnityPost] LetterDeliveryReaction の Letter Prefab / Point A / Point B を設定してください。", this);
                 return null;
             }
 

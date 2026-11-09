@@ -46,7 +46,7 @@ namespace PetPost
         {
             if (Instance != null && Instance != this)
             {
-                Debug.LogWarning("[PetPost] PetEventHub がシーンに複数あります。1つにしてください。", this);
+                Debug.LogWarning("[UnityPost] PetEventHub がシーンに複数あります。1つにしてください。", this);
                 enabled = false;
                 return;
             }
@@ -105,7 +105,7 @@ namespace PetPost
 
         void Deliver(PetEvent e)
         {
-            if (logEvents) Debug.Log($"[PetPost] {e}");
+            if (logEvents) Debug.Log($"[UnityPost] {e}");
             try { Delivered?.Invoke(e); }
             catch (Exception ex) { Debug.LogException(ex, this); }
             try { onDelivered.Invoke(e); }

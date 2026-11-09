@@ -79,7 +79,7 @@ namespace PetPost.Sources
             if (!d.enabled) { SetStatus(SourceStatus.Stopped, "設定で無効"); return; }
             if (string.IsNullOrWhiteSpace(d.botToken)) { SetStatus(SourceStatus.Error, "botToken が空です"); return; }
             if (myMentions && string.IsNullOrWhiteSpace(d.myUserId))
-                Debug.LogWarning("[PetPost/Discord] myUserId が空なので、あなたへのメンションは判定できません。");
+                Debug.LogWarning("[UnityPost/Discord] myUserId が空なので、あなたへのメンションは判定できません。");
 
             _token = d.botToken.Trim();
             _myUserId = d.myUserId?.Trim();
@@ -134,7 +134,7 @@ namespace PetPost.Sources
                 }
                 catch (Exception ex)
                 {
-                    Debug.LogWarning($"[PetPost/Discord] 接続エラー: {ex.Message}");
+                    Debug.LogWarning($"[UnityPost/Discord] 接続エラー: {ex.Message}");
                     end = ConnectionEnd.Reconnect;
                 }
 
@@ -264,14 +264,14 @@ namespace PetPost.Sources
                 case 4007: case 4009: case 4003: case 4005:
                     return ConnectionEnd.ReconnectFresh;
                 default:
-                    if (code >= 0) Debug.Log($"[PetPost/Discord] 切断されました（{code} {reason}）。再接続します。");
+                    if (code >= 0) Debug.Log($"[UnityPost/Discord] 切断されました（{code} {reason}）。再接続します。");
                     return ConnectionEnd.Reconnect;
             }
         }
 
         void Fail(string message)
         {
-            Debug.LogError("[PetPost/Discord] " + message);
+            Debug.LogError("[UnityPost/Discord] " + message);
             SetStatus(SourceStatus.Error, message);
         }
 
@@ -289,7 +289,7 @@ namespace PetPost.Sources
                     if (!hb.acked)
                     {
                         // 前回の心拍に返事がない＝ゾンビ接続。切って再開させる。
-                        Debug.Log("[PetPost/Discord] 心拍の応答がないため再接続します。");
+                        Debug.Log("[UnityPost/Discord] 心拍の応答がないため再接続します。");
                         ws.Abort();
                         return;
                     }
@@ -301,7 +301,7 @@ namespace PetPost.Sources
             catch (OperationCanceledException) { }
             catch (Exception ex) when (!ct.IsCancellationRequested)
             {
-                Debug.LogWarning($"[PetPost/Discord] 心拍エラー: {ex.Message}");
+                Debug.LogWarning($"[UnityPost/Discord] 心拍エラー: {ex.Message}");
             }
         }
 
@@ -322,7 +322,7 @@ namespace PetPost.Sources
                     _botUserId = PetJson.Str(d["user"], "id");
                     _reachedReady = true;
                     SetStatus(SourceStatus.Connected, $"{PetJson.Str(d["user"], "username")} として接続");
-                    Debug.Log($"[PetPost/Discord] 接続しました（Bot: {PetJson.Str(d["user"], "username")}）");
+                    Debug.Log($"[UnityPost/Discord] 接続しました（Bot: {PetJson.Str(d["user"], "username")}）");
                     break;
 
                 case "RESUMED":
