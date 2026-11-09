@@ -2,7 +2,9 @@
 
 - アプリ起動中だけ通知を受け取ります。
 - 「リンゴが落ちる」「手紙が届く」「キラキラが出る」などの演出に振り分けます。
-- サーバー不要で、Unity単体で動きます。
+- クラウドなどのサーバー不要で、Unity単体で動きます。
+
+[👉作業手順：](https://github.com/toya-mimura/unity-post/tree/main#1-unity-%E3%81%AB%E5%85%A5%E3%82%8C%E3%82%8B)
 
 ```
  Discord Gateway ──(WebSocket)──▶ DiscordGatewaySource ─┐
@@ -31,7 +33,8 @@
 - 想定環境：Unity 2022.3 / Unity 6、Windows スタンドアロン
 
 1. `Unity-post` フォルダごと `Assets/` に入れる。
-2. **Newtonsoft JSON を入れる**：Window → Package Manager → 左上の「＋」→ *Install package by name…* → `com.unity.nuget.newtonsoft-json` を検索
+2. **Newtonsoft JSON を入れる**：
+   【Window】 → 【Package Manager】 → 左上の「＋」→ *Install package by name…* → `com.unity.nuget.newtonsoft-json` を検索
    - **一字一句そのまま**入力。`newtonsoft` だけだと見つかりません。
    - Version は空欄でOK
    - すでに入っているプロジェクトも多いです。Consoleに `Newtonsoft` のエラーが出なければOK。
@@ -75,10 +78,11 @@
 ## 4. シーンを組む
 
 > **手早く試したいとき**：  
-> 1. メニューの **Unity Post > デモシーンを作る** で、床・仮の樹・Apple プレハブ・生成エリア・ルールのつなぎ込みまで自動で組めます（Ctrl+Z で取り消し可）。  
-> 2. Window > Package Management > Package Manager:  `com.unity.cloud.gltfast`を導入してください。
-> 新しいシーン（File > New Scene）で実行するのがおすすめです。
-> 以下は手で組む場合の説明です。
+> 1. メニューの **【Unity Post】 > 【デモシーンを作る】**
+>  - 床・仮の樹・Apple プレハブ・生成エリア・ルールのつなぎ込みまで自動で組めます（Ctrl+Z で取り消し可）。  
+> 2. 【Window】 > 【Package Management】 > 【Package Manager】:  `com.unity.cloud.gltfast`を導入してください。
+> ✨新しいシーン（File > New Scene）で実行するのがおすすめです。
+> ✨以下は手で組む場合の説明です。
 
 
 空の GameObject「UnityPost」を作り、次を付けます：
@@ -116,11 +120,12 @@
 
 ## 5. 設定ファイルを書く
 
-1. 手順4のコンポーネントを付けてから一度 ▶再生 すると、雛形が自動で作られ、Consoleに場所が出ます（コンポーネントがないと何も起きません）。
+1. 手順4のコンポーネントを付けてから一度 【▶再生】
+   - 雛形が自動で作られ、Consoleに場所が出ます（コンポーネントがないと何も起きません）。
 2. 再生を止めて値を書き、もう一度再生してください。デバッグパネルの「フォルダを開く」でも開けます。
 
 - Windows：`%USERPROFILE%\AppData\LocalLow\<Company Name>\<Product Name>\petpost_config.json`
-  （Company Name / Product Name は Player Settings の値。変えると場所も変わります）
+  - （Company Name / Product Name は Player Settings の値。変えると場所も変わります）
 
 ```json
 {
@@ -139,14 +144,15 @@
 }
 ```
 
-このファイルは **Assets の外** にあるので、ビルドにもGitにも入りません。
-**Assets の中にコピーしないでください。**
+このファイルは **Assets の外** にあるので、ビルドにもGitにも入りません。  
+**💫Assets の中にコピーしないでください。**
 
 ## 6. 動作確認
 
 1. ▶再生 → 左上のパネルで、Discord / Bluesky が **緑●Connected** になるのを確認。
-2. パネルの「テスト送信」ボタンで、本物と同じ形の偽イベントが流れます。ルールと演出をここで調整。
-   「同じ人がメンション×5」で、クールダウンにより1回だけ反応することも確認できます。
+2. パネルの「テスト送信」ボタンで、本物と同じ形の偽イベントが流れます。
+   - ルールと演出をここで調整。
+   - 「同じ人がメンション×5」で、クールダウンにより1回だけ反応することも確認できます。
 3. 本物で試す：
    - **Discord・Botへのメンション**：自分のサーバーで `@（Botの名前）` とBotをメンション → `botMentions` で反応。
    - **Discord・自分へのメンション**：自分で自分をメンションしても反応しません（仕様）。チャンネルの ウェブフック を作って、PowerShell から送ると試せます：
