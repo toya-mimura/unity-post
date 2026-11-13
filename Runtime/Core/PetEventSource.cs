@@ -59,5 +59,31 @@ namespace PetPost
 
         protected abstract void StartSource();
         protected abstract void StopSource();
+
+        // ================= Workers（cf-unity-hub）からの設定待ち =================
+
+        System.Action _remoteReadyCallback;
+
+        /// <summary>
+        /// 設定が Workers から届くのを待ち、届いたら StartSource をやり直す。
+        /// StartSource の中で PetPostConfig.Load() が null で、PetPostConfig.IsRemotePending のときに呼ぶ。
+        /// </summary>
+        protected void WaitForRemoteConfig()
+        {
+            SetStatus(SourceStatus.Connecting, "Workers から設定を取得中");
+            if (_remoteReadyCallback != null) return;
+            _remoteReadyCallback = () =>
+            {
+                _remoteReadyCallback = null;
+                if (this != null && isActiveAndEnabled) StartSource();
+            };
+            PetPostConfig.WhenRemoteReady(_remoteReadyCallback);
+        }
+
+        void OnDestroy()
+        {
+            PetPostConfig.CancelWhenRemoteReady(_remoteReadyCallback);
+            _remoteReadyCallback = null;
+        }
     }
 }

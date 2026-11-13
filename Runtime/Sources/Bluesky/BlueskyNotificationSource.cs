@@ -60,10 +60,21 @@ namespace PetPost.Sources
         protected override void StartSource()
         {
             var cfg = PetPostConfig.Load(configPathOverride);
-            if (cfg == null) { SetStatus(SourceStatus.Error, "設定ファイルがありません"); return; }
+            if (cfg == null)
+            {
+                if (string.IsNullOrEmpty(configPathOverride) && PetPostConfig.IsRemotePending) { WaitForRemoteConfig(); return; }
+                SetStatus(SourceStatus.Error, "設定ファイルがありません");
+                return;
+            }
 
             _cfg = cfg.bluesky;
-            if (!_cfg.enabled) { SetStatus(SourceStatus.Stopped, "設定で無効"); return; }
+            if (!_cfg.enabled)
+            {
+                SetStatus(SourceStatus.Stopped, cfg.hub != null && cfg.hub.blueskyViaHub
+                    ? "cf-unity-hub 側で監視中（HubPetEventSource で受信）"
+                    : "設定で無効");
+                return;
+            }
             if (string.IsNullOrWhiteSpace(_cfg.identifier) || string.IsNullOrWhiteSpace(_cfg.appPassword))
             {
                 SetStatus(SourceStatus.Error, "identifier / appPassword が空です");
