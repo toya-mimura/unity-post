@@ -45,6 +45,8 @@ namespace PetPost.DebugTools
             foreach (var s in PetEventSource.Active)
                 GUILayout.Label($"{Dot(s.Status)} {s.DisplayName}: {s.Status}\n   {s.StatusMessage}", Rich());
 
+            GUILayout.Label("設定: " + OriginLabel(), Rich());
+
             var hub = PetEventHub.Instance;
             GUILayout.Label(hub != null ? $"待ち行列: {hub.QueuedCount}" : "<color=#ff6666>PetEventHub がありません</color>", Rich());
 
@@ -99,6 +101,17 @@ namespace PetPost.DebugTools
             // 毎回別人にして、連打対策（クールダウン）に引っかからないようにする
             PetEventBus.Publish(new PetEvent(source, kind, "debug",
                                              $"debug-user-{_fakeCounter}", $"テスト{_fakeCounter}"));
+        }
+
+        static string OriginLabel()
+        {
+            switch (PetPostConfig.Origin)
+            {
+                case PetPostConfig.ConfigOrigin.Local: return "<color=#5cd65c>ローカルの petpost_config.json</color>";
+                case PetPostConfig.ConfigOrigin.Remote: return "<color=#5cd65c>Workers（cf-unity-hub）から取得</color>";
+                case PetPostConfig.ConfigOrigin.RemotePending: return "<color=#e6c34d>Workers から取得中…</color>";
+                default: return "<color=#999999>未読み込み</color>";
+            }
         }
 
         static string Dot(SourceStatus s)

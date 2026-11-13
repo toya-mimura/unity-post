@@ -21,6 +21,8 @@
 | 配達係 | `Core/PetEventHub.cs` | 連打の間引き・同じ人のクールダウン・順番に配達 |
 | 振り分け | `Core/PetReactionRouter.cs` | 「誰から・何が」でルールを作り、演出をランダム/全部/順番に実行 |
 | 秘密情報 | `Core/PetPostConfig.cs` | トークンを Assets の外から読む |
+| 秘密情報（Workers） | `Core/PetPostRemoteConfig.cs` | ローカルに無ければ cf-unity-hub から取得（メモリのみ） |
+| Hub 経由の受信 | `Sources/Hub/HubPetEventSource.cs` | cf-unity-hub が監視した Bluesky の通知を受け取る（cf-unity-hub が無くてもコンパイルは通る） |
 | Discord | `Sources/Discord/DiscordGatewaySource.cs` | 新メンバー・メンション・Bot宛てDM |
 | Bluesky | `Sources/Bluesky/BlueskyNotificationSource.cs` | いいね・リポスト・フォロー・メンション・リプライ・引用 |
 | 演出サンプル | `Reactions/*.cs` | プレハブ生成、パーティクル、Animator、効果音、差出人名の表示 |
@@ -148,6 +150,30 @@
 このファイルは **Assets の外** にあるので、ビルドにもGitにも入りません。  
 **💫Assets の中にコピーしないでください。**
 
+## 5.5 【任意】設定を cf-unity-hub（Cloudflare Workers）から読む
+
+[cf-unity-hub](https://github.com/toya-mimura/cf-unity-hub) を使っている場合、秘密情報を Worker の **Secrets** に置き、どの端末からでも同じ設定で動かせます。
+
+| | ローカル（手順5） | Workers（この手順） |
+|---|---|---|
+| Discord Bot トークン | `petpost_config.json` | Secrets → 端末ごとの **Service Token** で取得、メモリにだけ保持 |
+| Bluesky アプリパスワード | `petpost_config.json` | Secrets から**出さない**。Worker が通知を監視して、Hub の WebSocket で届く |
+
+**優先順位**：① ローカルの `petpost_config.json` があればそれを使う → ② 無ければ Workers から取得。
+
+1. cf-unity-hub 側の準備（Secrets の登録、Service Token と `/device` 用 Access アプリ）は、cf-unity-hub の README「unity-post 連携」を参照
+2. UnityPost オブジェクト（PetEventHub があるもの）に **PetPostRemoteConfig** を追加
+   - `Hub Base Url`：cf-unity-hub の URL（例：`https://cf-unity-hub.xxxx.workers.dev`）
+   - `Access Client Id` / `Access Client Secret`：**この端末用**の Service Token
+     - エディタで使うだけなら、インスペクターに書かずに環境変数 `PETPOST_ACCESS_CLIENT_ID` / `PETPOST_ACCESS_CLIENT_SECRET` に入れておく方法もあります（シーンファイルに残らない）
+3. Bluesky を Hub 経由で受け取る場合は、同じオブジェクトに **HubPetEventSource** も追加
+   - シーンにある cf-unity-hub の `CloudflareHubClient` を自動で見つけてつなぎます（`Hub` 欄に直接入れても可）
+   - cf-unity-hub の型を直接参照しない作りなので、cf-unity-hub を入れていないプロジェクトでもコンパイルエラーにはなりません
+4. ▶再生すると、デバッグパネルに「設定: Workers（cf-unity-hub）から取得」と出ます
+
+> ローカルの `petpost_config.json` が残っていると、そちらが優先されます。Workers 側の設定を試したいときは、ファイルを別名に変えるか、PetPostRemoteConfig の `Ignore Local File` をオンにしてください。
+> ローカルで Bluesky を直接受信しているあいだは、Hub から届く Bluesky イベントは自動で捨てられます（二重反応の防止）。
+
 ## 6. 動作確認
 
 1. ▶再生 → 左上のパネルで、Discord / Bluesky が **緑●Connected** になるのを確認。
@@ -211,7 +237,9 @@ public class MisskeySource : PetEventSource
 
 ## 9. 安全メモ
 
-- Botトークン・アプリパスワードは **設定ファイルにだけ** 書く。スクリーンショットや配信にも映さない。
+- Botトークン・アプリパスワードは **設定ファイル（または cf-unity-hub の Secrets）にだけ** 書く。スクリーンショットや配信にも映さない。
+- Workers から読む場合、Service Token は端末ごとに発行する。端末をなくしたら、その Service Token だけを Zero Trust で削除すれば、ほかの端末はそのまま使える。
+- Service Token をインスペクターに書いたシーンは、公開リポジトリにコミットしない。
 - 漏れたかも？と思ったら：Discord は Reset Token、Bluesky はアプリパスワードを削除して作り直し。
 - このBotは **送信しない・権限ゼロ・コマンドなし** なので、ほかの人が操作する入口がありません。
 - 友人に配る場合は、各自が自分のBotを作って自分の設定ファイルを用意する形になります（1つのBotトークンを配らないこと）。

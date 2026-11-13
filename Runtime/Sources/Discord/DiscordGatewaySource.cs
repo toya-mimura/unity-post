@@ -73,7 +73,12 @@ namespace PetPost.Sources
         protected override void StartSource()
         {
             var cfg = PetPostConfig.Load(configPathOverride);
-            if (cfg == null) { SetStatus(SourceStatus.Error, "設定ファイルがありません"); return; }
+            if (cfg == null)
+            {
+                if (string.IsNullOrEmpty(configPathOverride) && PetPostConfig.IsRemotePending) { WaitForRemoteConfig(); return; }
+                SetStatus(SourceStatus.Error, "設定ファイルがありません");
+                return;
+            }
 
             var d = cfg.discord;
             if (!d.enabled) { SetStatus(SourceStatus.Stopped, "設定で無効"); return; }
